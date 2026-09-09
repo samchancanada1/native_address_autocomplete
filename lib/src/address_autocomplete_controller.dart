@@ -8,6 +8,9 @@ import 'resolved_address.dart';
 /// Use this when a parent widget needs to observe the current suggestions,
 /// loading state, selected suggestion, resolved address, or last error.
 class AddressAutocompleteController extends ChangeNotifier {
+  /// Creates an address autocomplete state controller.
+  AddressAutocompleteController();
+
   /// The most recent suggestion selected by the user.
   AddressSuggestion? get selectedSuggestion => _selectedSuggestion;
   AddressSuggestion? _selectedSuggestion;
