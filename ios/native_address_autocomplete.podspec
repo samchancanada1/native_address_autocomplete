@@ -5,13 +5,13 @@
 Pod::Spec.new do |s|
   s.name             = 'native_address_autocomplete'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.summary          = 'Native address autocomplete widgets for Flutter.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+A customizable Flutter address autocomplete plugin powered by Apple MapKit on iOS and Android Geocoder on Android. It includes TextField and FormField widgets, address resolution, and no required API keys.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/samchancanada1/native_address_autocomplete'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Sam Chan' => 'samchancanada1@users.noreply.github.com' }
   s.source           = { :path => '.' }
   s.source_files = 'native_address_autocomplete/Sources/native_address_autocomplete/**/*'
   s.dependency 'Flutter'

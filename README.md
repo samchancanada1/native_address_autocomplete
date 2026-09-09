@@ -20,6 +20,15 @@ Android `Geocoder` is best-effort and depends on the device's available geocodin
 service. It is useful for lightweight address suggestions, but it is not a full
 replacement for Google Places Autocomplete in delivery-critical flows.
 
+## Requirements
+
+- Flutter 3.3.0 or newer
+- Dart 3.12.2 or newer
+- Android minSdk 24 or newer
+- iOS 13.0 or newer
+- Android uses Java 17-compatible builds
+- iOS uses Swift 5.0-compatible builds
+
 ## Usage
 
 ```dart
