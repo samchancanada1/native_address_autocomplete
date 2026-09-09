@@ -63,56 +63,56 @@ class NativeAddressAutocompleteFormField extends FormField<ResolvedAddress> {
     super.initialValue,
     super.autovalidateMode,
   }) : super(
-         enabled: enabled ?? true,
-         builder: (FormFieldState<ResolvedAddress> field) {
-           final InputDecoration effectiveDecoration = decoration.copyWith(
-             errorText: field.errorText,
-           );
-           return NativeAddressAutocompleteTextField(
-             addressController: addressController,
-             controller: controller,
-             focusNode: focusNode,
-             provider: provider,
-             decoration: effectiveDecoration,
-             style: style,
-             enabled: enabled,
-             keyboardType: keyboardType,
-             textInputAction: textInputAction,
-             minChars: minChars,
-             debounce: debounce,
-             limit: limit,
-             countries: countries,
-             latitude: latitude,
-             longitude: longitude,
-             radiusMeters: radiusMeters,
-             resultTypes: resultTypes,
-             locale: locale,
-             useSystemLocale: useSystemLocale,
-             dropdownMaxHeight: dropdownMaxHeight,
-             itemBuilder: itemBuilder,
-             suggestionsBuilder: suggestionsBuilder,
-             loadingBuilder: loadingBuilder,
-             loadingIndicatorBuilder: loadingIndicatorBuilder,
-             showLoadingIndicator: showLoadingIndicator,
-             showClearButton: showClearButton,
-             clearButtonBuilder: clearButtonBuilder,
-             emptyBuilder: emptyBuilder,
-             errorBuilder: errorBuilder,
-             onChanged: onChanged,
-             onSelected: onSelected,
-             resolveOnSelected: resolveOnSelected,
-             onResolved: (ResolvedAddress address) {
-               field.didChange(address);
-               onResolved?.call(address);
-             },
-             onError: onError,
-             highlightMatches: highlightMatches,
-             clearTooltip: clearTooltip,
-             emptyText: emptyText,
-             errorText: errorText,
-             onTapOutside: onTapOutside,
-             debounceTimerFactory: debounceTimerFactory,
-           );
-         },
-       );
+          enabled: enabled ?? true,
+          builder: (FormFieldState<ResolvedAddress> field) {
+            final InputDecoration effectiveDecoration = decoration.copyWith(
+              errorText: field.errorText,
+            );
+            return NativeAddressAutocompleteTextField(
+              addressController: addressController,
+              controller: controller,
+              focusNode: focusNode,
+              provider: provider,
+              decoration: effectiveDecoration,
+              style: style,
+              enabled: enabled,
+              keyboardType: keyboardType,
+              textInputAction: textInputAction,
+              minChars: minChars,
+              debounce: debounce,
+              limit: limit,
+              countries: countries,
+              latitude: latitude,
+              longitude: longitude,
+              radiusMeters: radiusMeters,
+              resultTypes: resultTypes,
+              locale: locale,
+              useSystemLocale: useSystemLocale,
+              dropdownMaxHeight: dropdownMaxHeight,
+              itemBuilder: itemBuilder,
+              suggestionsBuilder: suggestionsBuilder,
+              loadingBuilder: loadingBuilder,
+              loadingIndicatorBuilder: loadingIndicatorBuilder,
+              showLoadingIndicator: showLoadingIndicator,
+              showClearButton: showClearButton,
+              clearButtonBuilder: clearButtonBuilder,
+              emptyBuilder: emptyBuilder,
+              errorBuilder: errorBuilder,
+              onChanged: onChanged,
+              onSelected: onSelected,
+              resolveOnSelected: resolveOnSelected,
+              onResolved: (ResolvedAddress address) {
+                field.didChange(address);
+                onResolved?.call(address);
+              },
+              onError: onError,
+              highlightMatches: highlightMatches,
+              clearTooltip: clearTooltip,
+              emptyText: emptyText,
+              errorText: errorText,
+              onTapOutside: onTapOutside,
+              debounceTimerFactory: debounceTimerFactory,
+            );
+          },
+        );
 }

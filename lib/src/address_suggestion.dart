@@ -4,6 +4,7 @@
 /// `NativeAddressAutocomplete.resolve` when you need the best available
 /// coordinate and normalized address components for the selected suggestion.
 class AddressSuggestion {
+  /// Creates an autocomplete suggestion.
   const AddressSuggestion({
     required this.id,
     required this.primaryText,
@@ -20,20 +21,46 @@ class AddressSuggestion {
     this.country,
   });
 
+  /// Stable provider id for this suggestion when the platform supplies one.
   final String id;
+
+  /// Main line of text, usually the street address or place name.
   final String primaryText;
+
+  /// Secondary line of text, usually city, region, or country context.
   final String? secondaryText;
+
+  /// Full display text for the suggestion.
   final String fullText;
+
+  /// Latitude when the platform returns coordinates with the suggestion.
   final double? latitude;
+
+  /// Longitude when the platform returns coordinates with the suggestion.
   final double? longitude;
+
+  /// ISO 3166 country code when available.
   final String? countryCode;
+
+  /// Street number when available.
   final String? streetNumber;
+
+  /// Street name when available.
   final String? street;
+
+  /// City or locality when available.
   final String? city;
+
+  /// State, province, or administrative area when available.
   final String? state;
+
+  /// Postal or ZIP code when available.
   final String? postalCode;
+
+  /// Country name when available.
   final String? country;
 
+  /// Creates a suggestion from a platform channel map.
   factory AddressSuggestion.fromMap(Map<Object?, Object?> map) {
     return AddressSuggestion(
       id: map['id'] as String? ?? '',
@@ -52,6 +79,7 @@ class AddressSuggestion {
     );
   }
 
+  /// Converts this suggestion into a platform channel map.
   Map<String, Object?> toMap() {
     return <String, Object?>{
       'id': id,

@@ -34,8 +34,7 @@ class MethodChannelNativeAddressAutocomplete
   ) async {
     final List<Object?> rawSuggestions;
     try {
-      rawSuggestions =
-          await methodChannel.invokeMethod<List<Object?>>(
+      rawSuggestions = await methodChannel.invokeMethod<List<Object?>>(
             'suggestAddresses',
             options.toMap(),
           ) ??

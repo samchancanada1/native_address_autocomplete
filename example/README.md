@@ -1,17 +1,22 @@
-# native_address_autocomplete_example
+# native_address_autocomplete example
 
-Demonstrates how to use the native_address_autocomplete plugin.
+This example app demonstrates the main ways to use
+`native_address_autocomplete`.
 
-## Getting Started
+## Included demos
 
-This project is a starting point for a Flutter application.
+- Split fields: selects an address suggestion and fills separate city, state,
+  postal code, and country text fields.
+- Full text: keeps the selected suggestion's full address text in one field.
+- Custom result style: replaces the default result rows with a custom dropdown
+  surface and custom item layout.
+- Custom loading: customizes both the trailing loading indicator and the
+  dropdown loading state.
+- Controller state: shows suggestions, selection, resolved address, loading,
+  and error state from `AddressAutocompleteController`.
 
-A few resources to get you started if this is your first Flutter project:
+## Run
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```sh
+flutter run
+```

@@ -12,33 +12,34 @@ import 'native_address_autocomplete_client.dart';
 import 'resolved_address.dart';
 
 /// Builds the UI for one address suggestion.
-typedef AddressSuggestionItemBuilder =
-    Widget Function(
-      BuildContext context,
-      AddressSuggestion suggestion,
-      int index,
-    );
+typedef AddressSuggestionItemBuilder = Widget Function(
+  BuildContext context,
+  AddressSuggestion suggestion,
+  int index,
+);
 
 /// Builds the suggestions dropdown body.
 ///
 /// The provided `itemBuilder` already handles hover, keyboard highlight, and
 /// tap-to-select wrapping.
-typedef AddressSuggestionsBuilder =
-    Widget Function(
-      BuildContext context,
-      List<AddressSuggestion> suggestions,
-      AddressSuggestionItemBuilder itemBuilder,
-    );
+typedef AddressSuggestionsBuilder = Widget Function(
+  BuildContext context,
+  List<AddressSuggestion> suggestions,
+  AddressSuggestionItemBuilder itemBuilder,
+);
 
 /// Builds the dropdown error state.
-typedef AddressAutocompleteErrorBuilder =
-    Widget Function(BuildContext context, Object error);
+typedef AddressAutocompleteErrorBuilder = Widget Function(
+    BuildContext context, Object error);
 
 /// Creates the timer used to debounce native autocomplete requests.
-typedef AddressAutocompleteDebounceFactory =
-    Timer Function(Duration duration, VoidCallback callback);
+typedef AddressAutocompleteDebounceFactory = Timer Function(
+    Duration duration, VoidCallback callback);
 
 /// Default debounce timer factory.
+///
+/// Pass a custom [AddressAutocompleteDebounceFactory] in tests when you need to
+/// control debounce timing.
 Timer defaultAddressAutocompleteDebounceFactory(
   Duration duration,
   VoidCallback callback,
@@ -52,6 +53,7 @@ Timer defaultAddressAutocompleteDebounceFactory(
 /// navigation, optional clear/loading suffix controls, and optional resolution
 /// of the selected suggestion.
 class NativeAddressAutocompleteTextField extends StatefulWidget {
+  /// Creates a native address autocomplete text field.
   const NativeAddressAutocompleteTextField({
     super.key,
     this.addressController,
@@ -99,45 +101,130 @@ class NativeAddressAutocompleteTextField extends StatefulWidget {
     this.debounceTimerFactory = defaultAddressAutocompleteDebounceFactory,
   });
 
+  /// External state controller for loading, suggestions, selection, and errors.
   final AddressAutocompleteController? addressController;
+
+  /// The text controller used by the underlying [TextField].
   final TextEditingController? controller;
+
+  /// The focus node used by the underlying [TextField].
   final FocusNode? focusNode;
+
+  /// Native autocomplete provider. Override this for tests or custom providers.
   final NativeAddressAutocomplete provider;
+
+  /// Decoration for the underlying [TextField].
   final InputDecoration decoration;
+
+  /// Text style for the editable text.
   final TextStyle? style;
+
+  /// Whether the underlying [TextField] is enabled.
   final bool? enabled;
+
+  /// Keyboard type for the underlying [TextField].
   final TextInputType? keyboardType;
+
+  /// Text input action for the underlying [TextField].
   final TextInputAction? textInputAction;
+
+  /// Minimum number of trimmed characters required before searching.
   final int minChars;
+
+  /// Delay after typing before a native autocomplete request is sent.
   final Duration debounce;
+
+  /// Maximum number of suggestions returned to the widget.
   final int limit;
+
+  /// ISO 3166 country codes used to prefer or filter results where supported.
   final List<String> countries;
+
+  /// Latitude used as the center of the optional search bias.
   final double? latitude;
+
+  /// Longitude used as the center of the optional search bias.
   final double? longitude;
+
+  /// Radius, in meters, for the optional search bias.
   final double? radiusMeters;
+
+  /// Requested result types.
+  ///
+  /// iOS MapKit supports address and point-of-interest filtering. Android
+  /// `Geocoder` does not expose equivalent filtering, so this is best-effort.
   final Set<AddressResultType> resultTypes;
+
+  /// Preferred locale for native results where the platform supports it.
   final Locale? locale;
+
+  /// Whether to use [Localizations.maybeLocaleOf] when [locale] is null.
   final bool useSystemLocale;
+
+  /// Maximum dropdown height before the suggestions list scrolls.
   final double dropdownMaxHeight;
+
+  /// Builder for each suggestion row.
   final AddressSuggestionItemBuilder? itemBuilder;
+
+  /// Builder for the complete suggestions dropdown body.
   final AddressSuggestionsBuilder? suggestionsBuilder;
+
+  /// Builder for the dropdown loading state.
   final WidgetBuilder? loadingBuilder;
+
+  /// Builder for the trailing loading indicator in the text field.
   final WidgetBuilder? loadingIndicatorBuilder;
+
+  /// Whether to show a trailing loading indicator while searching.
   final bool showLoadingIndicator;
+
+  /// Whether to show a trailing clear button when the field has text.
   final bool showClearButton;
+
+  /// Builder for the trailing clear button.
   final WidgetBuilder? clearButtonBuilder;
+
+  /// Builder for the dropdown empty state.
   final WidgetBuilder? emptyBuilder;
+
+  /// Builder for the dropdown error state.
   final AddressAutocompleteErrorBuilder? errorBuilder;
+
+  /// Called whenever the text field value changes.
   final ValueChanged<String>? onChanged;
+
+  /// Called when the user selects a suggestion.
   final ValueChanged<AddressSuggestion>? onSelected;
+
+  /// Whether to resolve the selected suggestion into a [ResolvedAddress].
   final bool resolveOnSelected;
+
+  /// Called when a selected suggestion resolves successfully.
   final ValueChanged<ResolvedAddress>? onResolved;
+
+  /// Called when suggestion loading or address resolution fails.
+  ///
+  /// Use this for logging, analytics, or app-level error UI. Use
+  /// [errorBuilder] to customize the dropdown error view.
   final ValueChanged<Object>? onError;
+
+  /// Whether matching query text should be highlighted in default rows.
   final bool highlightMatches;
+
+  /// Tooltip for the default clear button.
   final String clearTooltip;
+
+  /// Text shown by the default empty dropdown state.
   final String emptyText;
+
+  /// Text shown by the default error dropdown state.
   final String errorText;
+
+  /// Called when a tap lands outside the field.
   final TapRegionCallback? onTapOutside;
+
+  /// Factory used to create debounce timers.
   final AddressAutocompleteDebounceFactory debounceTimerFactory;
 
   @override
@@ -459,8 +546,7 @@ class _NativeAddressAutocompleteTextFieldState
   }
 
   String? get _localeTag {
-    final Locale? locale =
-        widget.locale ??
+    final Locale? locale = widget.locale ??
         (widget.useSystemLocale ? Localizations.maybeLocaleOf(context) : null);
     return localeToLanguageTag(locale);
   }
@@ -516,15 +602,13 @@ class _NativeAddressAutocompleteTextFieldState
   Widget _buildDropdown(BuildContext context, double maxHeight) {
     Widget child;
     if (_loading) {
-      child =
-          widget.loadingBuilder?.call(context) ??
+      child = widget.loadingBuilder?.call(context) ??
           const Padding(
             padding: EdgeInsets.all(16),
             child: Center(child: CircularProgressIndicator.adaptive()),
           );
     } else if (_error != null) {
-      child =
-          widget.errorBuilder?.call(context, _error!) ??
+      child = widget.errorBuilder?.call(context, _error!) ??
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
@@ -533,8 +617,7 @@ class _NativeAddressAutocompleteTextFieldState
             ),
           );
     } else if (_suggestions.isEmpty) {
-      child =
-          widget.emptyBuilder?.call(context) ??
+      child = widget.emptyBuilder?.call(context) ??
           (widget.emptyText.isEmpty
               ? const SizedBox.shrink()
               : Padding(
@@ -552,7 +635,7 @@ class _NativeAddressAutocompleteTextFieldState
         final bool highlighted = index == _highlightedIndex;
         return Material(
           color: highlighted
-              ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
+              ? Theme.of(context).colorScheme.primary.withAlpha(20)
               : Colors.transparent,
           child: InkWell(
             onTap: () => _selectSuggestion(suggestion),
@@ -568,14 +651,14 @@ class _NativeAddressAutocompleteTextFieldState
 
       child =
           widget.suggestionsBuilder?.call(context, _suggestions, itemBuilder) ??
-          ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: _suggestions.length,
-            itemBuilder: (BuildContext context, int index) {
-              return itemBuilder(context, _suggestions[index], index);
-            },
-          );
+              ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemCount: _suggestions.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return itemBuilder(context, _suggestions[index], index);
+                },
+              );
     }
 
     return Material(

@@ -1,6 +1,6 @@
 name: native_address_autocomplete
 description: "A customizable Flutter address autocomplete TextField powered by native iOS MapKit and Android Geocoder APIs."
-version: 0.0.1
+version: 0.0.2
 repository: https://github.com/samchancanada1/native_address_autocomplete
 issue_tracker: https://github.com/samchancanada1/native_address_autocomplete/issues
 topics:
@@ -9,10 +9,16 @@ topics:
   - geocoding
   - mapkit
   - geocoder
+screenshots:
+  - description: 'Address autocomplete text field with native suggestions shown in a dropdown.'
+    path: screenshots/address_autocomplete_dropdown.png
+platforms:
+  android:
+  ios:
 
 environment:
-  sdk: ^3.12.2
-  flutter: '>=3.3.0'
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.19.0'
 
 dependencies:
   flutter:

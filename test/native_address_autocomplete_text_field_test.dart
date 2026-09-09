@@ -180,6 +180,34 @@ void main() {
     expect(find.text('Custom error'), findsOneWidget);
   });
 
+  testWidgets('calls onError when suggestions fail', (
+    WidgetTester tester,
+  ) async {
+    Object? reportedError;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: NativeAddressAutocompleteTextField(
+            provider: const FailingAutocomplete(),
+            minChars: 1,
+            debounce: Duration.zero,
+            onError: (Object error) {
+              reportedError = error;
+            },
+          ),
+        ),
+      ),
+    );
+
+    await tester.enterText(find.byType(TextField), 'Queen');
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.pump();
+
+    expect(reportedError, isException);
+  });
+
   testWidgets('enter selects the highlighted suggestion', (
     WidgetTester tester,
   ) async {

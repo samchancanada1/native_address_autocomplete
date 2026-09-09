@@ -23,6 +23,11 @@ class NativeAddressAutocomplete {
 
   /// Returns address suggestions for [query].
   ///
+  /// [countries] accepts ISO 3166 country codes such as `US` or `CA`.
+  /// [limit] caps the returned suggestions. [latitude], [longitude], and
+  /// [radiusMeters] provide an optional location bias where supported.
+  /// [resultTypes] filters MapKit results on iOS and is best-effort on Android.
+  ///
   /// If [locale] or [localeTag] is omitted, the native platform uses the system
   /// or app locale. Android applies the requested locale to `Geocoder`; iOS
   /// MapKit follows the user's system/app language.
@@ -57,6 +62,9 @@ class NativeAddressAutocomplete {
   }
 
   /// Resolves a selected [suggestion] into coordinates and address components.
+  ///
+  /// Returns null when the platform cannot resolve the selected suggestion.
+  /// Returned components vary by platform and by provider data quality.
   Future<ResolvedAddress?> resolve(
     AddressSuggestion suggestion, {
     Locale? locale,
